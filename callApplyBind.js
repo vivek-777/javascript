@@ -12,7 +12,7 @@
 // }
 
 // //function borrowing
-// const abc = name1.printFullName.call(name1, 'dehradun', 'uttrakhand', 'dfdfdf');
+// const abc = name1.printFullName.call(name2, 'dehradun', 'uttrakhand', 'dfdfdf');
 // console.log(abc)
 
 
@@ -177,19 +177,17 @@
 //   }
 // }
 
-// Function.prototype.mybind = function(...args) {
-//   console.log(args[0].constructor === Object)
-//   if(args[0].constructor !== Object) args[0] ={} 
-//   args[0].func =  this
-//   let applyArray = args.slice(1)
-//   return function(...a){
-//     const abc = [...args.slice(1), ...a]
-//     args[0].func(...abc)
-//   }
-// }
+Function.prototype.mybind = function(...args) {
+  const ref = args[0];
+  ref.func =  this
+  return function(...a){
+    const abc = [...args.slice(1), ...a]
+    ref.func(...abc)
+  }
+}
 
-// let printMyName2 = printMyName.mybind(name1, 'dehradun', 'hisar');
-// printMyName2("uttrakhand");
+let printMyName2 = printMyName.mybind(name1, 'dehradun', 'hisar');
+printMyName2("uttrakhand");
 
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -237,11 +235,11 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Debouncing and Throttling~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-let counter = 0;
+// let counter = 0;
 
-const getData = function() {
-  console.log("fetching......", counter++)
-}
+// const getData = function() {
+//   console.log("fetching......", counter++)
+// }
 
 // const debounce = (fn, d) => {
 //   let timer;
@@ -282,32 +280,34 @@ const getData = function() {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
-// let res;
 
-// const debounce = (fn, d) => {
-//   return function() {
-//     clearTimeout(res);
-//     res = setTimeout(()=>{
-//       fn();
-//     },d);
-//   }
-// }
+const debounce = (fn, d) => {
+  let timer;
+  return function() {
+    clearTimeout(timer);
+    timer = setTimeout(()=>{
+      fn();
+    },d);
+  }
+}
 
-// const throttle = (fn, d) => {
-//   let flag = true 
-//   return function() {
-//     if(flag){
-//       fn();
-//       flag = false
-//       clearTimeout(res);
-//       res = setTimeout(()=>{
-//         flag = true
-//       },d);
-//     }
-//   }
-// }
+const throttle = (fn, d) => {
+  let timer;
+  let flag = true;
+  return function() {
+    if(flag){
+      fn();
+      flag = false
+      clearTimeout(timer);
+      timer = setTimeout(()=>{
+        flag = true
+      },d);
+    }
+  }
+}
 
-// const betterFunction = throttle(getData, 1000);
+// const betterFunction = debounce(() => { console.log("API Called")}, 1000);
+// const betterFunction = throttle(() => { console.log("API Called")}, 1000);
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 

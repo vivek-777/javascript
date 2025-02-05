@@ -111,7 +111,7 @@ const p1 = new Promise((resolve, reject) => {
   //async code
   setTimeout(() => {
     resolve("P1 Success");
-  }, 5000);
+  }, 10000);
 });
 
 const p2 = new Promise((resolve, reject) => {
@@ -126,7 +126,7 @@ const p2 = new Promise((resolve, reject) => {
   //async code
   setTimeout(() => {
     resolve("P2 Success");
-  }, 10000);
+  }, 5000);
 });
 
 async function handleData() {

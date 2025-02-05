@@ -31,32 +31,6 @@
 // console.log(flatten(arr))
 
 
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~2ND LARGEST ELEMENT IN ARRAY~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-// function secondLargest(arr){
-//   if(arr.length < 2) return "length < 2";
-
-//   let maxNum = arr[0];
-//   let secondMax = Number.NEGATIVE_INFINITY;
-
-//   for(let i = 1; i < arr.length; i++ ){
-//     if (arr[i] >= maxNum) {
-//       secondMax = maxNum;
-//       maxNum = arr[i];
-//     } else if (arr[i] > secondMax) {
-//       secondMax = arr[i];
-//     }
-//   }
-//   return secondMax
-// }
-
-// let arr = [8,5,5,0,9,2,4,9];
-
-// console.log(secondLargest(arr))
-
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~OBJECT FLATTEN~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -229,3 +203,59 @@
 // console.log(lengthOfLongestSubstring("bbbbb"));    // Output: 1 ("b")
 // console.log(lengthOfLongestSubstring("pwwkew"));   // Output: 3 ("wke")
 // console.log(lengthOfLongestSubstring("abca"));     // Output: 3 ("abc")
+
+
+
+///////////////////////////////////////////////////Curried Sum///////////////////////////////////////////////////
+
+const curriedSum = (currentSum = 0) => (num) => num ? curriedSum(currentSum + num) : currentSum;
+
+// Example usage:
+console.log(curriedSum(1)(2)(3)(4)(5)(6)());
+
+
+
+//////////////////////////////////////////////////
+
+const debounce = (fn, d) => {
+  let timer;
+  return function() {
+    clearTimeout(timer);
+    timer = setTimeout(()=>{
+      fn();
+    },d);
+  }
+}
+
+const throttle = (fn, d) => {
+  let timer;
+  let flag = true;
+  return function() {
+    if(flag){
+      fn();
+      flag = false
+      clearTimeout(timer);
+      timer = setTimeout(()=>{
+        flag = true
+      },d);
+    }
+  }
+}
+
+// const betterFunction = debounce(() => { console.log("API Called")}, 1000);
+// const betterFunction = throttle(() => { console.log("API Called")}, 1000);
+
+
+/////////////////////////////////////////////////////
+
+function deepCopy(sourceObject, destinationObject) {
+
+  for(key in sourceObject) {
+      if(sourceObject[key].constructor !== Object) {
+          destinationObject[key] = sourceObject[key];
+      } else {
+          destinationObject[key] = {};
+          deepCopy(sourceObject[key], destinationObject[key]);
+      }
+  }
+}

@@ -14,7 +14,7 @@
 // window.x(); //then value becomes refence object in strict mode also. for ex. window object in this case
 
 // this inside non strict mode - this substitution
-// if the value of this is null or defined this will replaced with global object only in non strict mode
+// if the value of this is null or undefined this will replaced with global object only in non strict mode
 
 /////////////////////////////////////////////////////////////////this inside object's method
 
